@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/scan_ok"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/scan_ok" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scan_ok"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="订单已完成"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/back_return"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_scan_back"
+            android:gravity="center"
+            android:text="返回管理页"
+            android:textColor="#34A3F1"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/go_order"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_go_order"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="查看订单详情"
+            android:textColor="@drawable/shape_go_order_text_color"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</LinearLayout>

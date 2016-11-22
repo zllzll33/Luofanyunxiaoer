@@ -1,0 +1,1 @@
+include ':app', ':library_Zxing', ':OneSDK', ':library_JsBridge'

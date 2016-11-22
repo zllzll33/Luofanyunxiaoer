@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <script type="text/javascript" src="app.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<h3 onclick="Login()">登录</h3>
+<h3 onclick="loginOut()">退出账号</h3>
+<h3 onclick="chat()">单聊</h3>
+<h3 onclick="chatList()">店小二</h3>
+<h3 onclick="scan()">扫一扫</h3>
+<h3 onclick="message()">消息</h3>
+<h3 onclick="closeWin()">关闭页面</h3>
+<h3 onclick="getMid()">商家id</h3>
+<h3 onclick="getVesion()">获得版本号</h3>
+<h3 onclick="Merchant()">进入主页面</h3>
+</body>
+<script type="text/javascript">
+Merchant();
+function  chat()
+{
+singleChat("luofanguser903");
+}
+function Login()
+{
+login('1','luofangsj4','fba7e82daf4333508eae82aaee2bb13a');
+}
+function Merchant()
+{
+merchant("1","luofangsj")
+}
+  function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+//  app 调 js
+        connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+             alert("hello");
+               var json = eval('(' + message + ')');
+                var type=json.type;
+                if(type=='ACW_Messge')
+                {
+                 //app发送数据   {"type":"ACW_Messge","num":"2"}
+                // 显示消息数
+                 alert(json.num);
+                }
+            });
+        })
+</script>
+</html>

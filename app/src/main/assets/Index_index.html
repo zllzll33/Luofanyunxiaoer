@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>商户管家</title>
+<link rel="stylesheet" href="http://a.luofangyun.com/Public/Merchantapp/css/normalize.css">
+<link rel="stylesheet" href="http://a.luofangyun.com/Public/Merchantapp/css/sj.css">
+	<script src="http://a.luofangyun.com/Public/Merchantapp/js/swiper.min.js"></script>
+    <script src="http://a.luofangyun.com/Public/Js/Mobile/jquery-1.7.1.min.js"></script>
+    <script src="http://a.luofangyun.com/Public/Js/layer/layer.js"></script>
+    <script src="http://a.luofangyun.com/Public/Merchantapp/js/interactive.js"></script>
+	<script src="file:///android_asset/app.js"></script>
+<script>
+//10px 1rem;
+!function(){function a(){if(document.documentElement.clientWidth<600){document.documentElement.style.fontSize=document.documentElement.clientWidth/32+"px"}else{document.documentElement.style.fontSize="16.875px"}}var b=null;window.addEventListener("resize",function(){clearTimeout(b),b=setTimeout(a,300)},!1),a()}(window);
+</script>
+<script type="text/javascript">
+var msystem = "{$msystem}";
+var Pullrefresh1 = null;//这个设置为全局
+/***提交商家ID***/
+function baichuanMerchant(utype,data){
+	var str = '{ "type": "merchant", "utype": "'+utype+'","data":"'+data+'"}';
+	interactive(str);
+	merchant(utype,data);
+}
+
+
+function Pullrefresh(url){
+	if (Pullrefresh1 == null) {
+		Pullrefresh1 = new Date().getTime();
+	} else {       
+		var Pullrefresh2 = new Date().getTime();
+		if(Pullrefresh2 - Pullrefresh1 < 500){
+			Pullrefresh1 = Pullrefresh2;
+			return;
+		} else {
+			Pullrefresh1 = Pullrefresh2;
+		}
+	}
+	location.href=url;
+}
+function baichuanchat(){
+	interactive('{"type":"baichuanchat"}','');
+	chatList();
+}
+
+</script>
+<style type="text/css">
+span.note-red {
+	display: block;
+	width: 1.6rem;
+	height: 1.6rem;
+	margin-left: 17px;
+	margin-top: -10px;
+	background-color: #fb794c;
+	border-radius: .8rem;
+	font-size: 1rem;
+	line-height: 1.6rem;
+	color: #fff;
+}	
+</style>
+</head>
+<body >
+	<header class="header">
+		<h1>商户管家</h1>
+		<a class="ico header-set" href="{:U('/Index/setinfo')}"></a>
+		<a class="ico header-notice" onclick="message()">
+			<i></i><span id="PushMsg"></span>
+		</a>
+	</header>
+	<div class="main container p-tb">
+		<section class="slide swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="__PUBLIC__/Merchantapp/img/banner.png" alt=""></div>
+				<div class="swiper-slide"><img src="__PUBLIC__/Merchantapp/img/banner.png" alt=""></div>
+				<div class="swiper-slide"><img src="__PUBLIC__/Merchantapp/img/banner.png" alt=""></div>
+			</div>
+			<div class="swiper-pagination">
+				<span class="swiper-pagination-bullet"></span>
+				<span class="swiper-pagination-bullet"></span>
+				<span class="swiper-pagination-bullet"></span>
+			</div>
+		</section>
+		<section class="nav-list">
+			<ul class="clearfix">
+				<li>
+					<a href="javascript:;" onclick="Pullrefresh('{:U('/User/index')}')">
+						<i class="ico ico-kljk"></i>
+						<span>会员管理</span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" onclick="Pullrefresh('{:U('/Order/manage')}')">
+						
+						<i class="ico ico-hygl"><span class="note-red"></span></i>
+						<span>订单管理</span>
+					</a>
+				</li>
+				<li class="bdr-n">
+					<a href="javascript:;" onclick="baichuanchat();">
+						<i class="ico ico-sbgl"></i>
+						<span>店小二</span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" onClick="scan()">
+						<i class="ico ico-sjtj"></i>
+						<span>扫一扫</span>
+					</a>
+				</li>
+				<!--互动营销的按钮-->
+				<li>
+					<a href="javascript:;" onClick="Pullrefresh('{:U('/Promotion/index')}')">
+						<i class="ico ico-hdyx"></i>
+						<span>互动营销</span>
+					</a>
+				</li>
+
+				<li class="bdr-n">
+					<a href="/Message/Fsend">
+						<i class="ico ico-push"></i>
+						<span>群发助手</span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" onClick="Mydialog()">
+						<i class="ico ico-ddgl"></i>
+						<span>数据统计</span>
+					</a>
+				</li>
+
+				<li class="last">
+					<a href="javascript:;">
+						<i class="ico ico-plus"></i>
+					</a>
+				</li>
+			</ul>
+		</section>
+	</div>
+	<div class="index-bottom">
+		<a href="javascript:;">
+			<p>浙江洛方信息科技有限公司</p>
+		</a>
+	</div>
+
+<script type="text/javascript">
+$(function(){
+	var note_url = "{:U("Order/note?jid=$jid")}";
+	$.get(note_url,function(req){
+		$('span.note-red').text(req.count);
+	})
+})	
+</script>
+	<a id="HahaButton" href="http://a.{$Think.config.DOMAIN_URL}/Public/haha" target="IFRAME" style=" display:none;">aa</a>
+	<iframe id="IFRAME" src="" style="display:none;"></iframe>
+	<script>
+	var mySlide = new Swiper('.swiper-container', {
+		speed: 400,
+		pagination: '.swiper-pagination',
+		autoplay: 5000,
+		autoplayDisableOnInteraction: false,
+		loop: true,
+		preloadImages: false,
+		lazyLoading: true
+	});
+	
+	function JSVibrate_Haha() {
+		if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+			document.getElementById("HahaButton").click();
+		} else {
+			window._WebView_JS_Bridge.vibrate(); 
+		}
+	}
+	
+	
+	
+	var count=0, i=1;
+	setInterval(function() {
+	$.get("{:U('/Message/checkmsg')}", function(data) {
+		if( parseInt( data) != 0 ) {
+			if(i==1 || count!=parseInt(data)) { //如果是第一次
+				$("#PushMsg").css("display","block");JSVibrate_Haha();
+			}
+			i++;
+		} else { $("#PushMsg").css("display","none"); }
+	})
+	}, 10000);
+	
+	function Mydialog() {
+		layer.msg('暂未开放');
+	}
+	function scan(){
+		interactive('{"type":"scan"}','');
+		app_scan();
+	}
+    </script>
+		<script type="text/javascript">
+	var Versions;//当前版本类型
+			var Msystem;//系统类型
+			var Newversion;//新版本号
+			var Iosupgradeurl = "http://h.luofangyun.com/Index/appdown/jid/1?iosversions=";
+			function connectWebViewJavascriptBridge(callback) {
+				if (window.WebViewJavascriptBridge) {
+					callback(WebViewJavascriptBridge)
+				} else {
+					document.addEventListener('WebViewJavascriptBridgeReady', function() {
+						callback(WebViewJavascriptBridge)
+					}, false)
+				}
+			}
+			connectWebViewJavascriptBridge(function(bridge) {
+				bridge.init(function(message, responseCallback) {
+				});
+				var data = 'get version number';
+				bridge.send(data, function(responseData) {
+					Versions = responseData;
+					Msystem = 'ios';
+					Newversion = '';
+					is_versions();
+				});
+
+			});
+			function interactive_version(requestData,needMethod){
+				connectWebViewJavascriptBridge(function(bridge) {
+					bridge.send(requestData, function(response) {
+						Versions = response;
+						Msystem = 'ios';
+						Newversion = '';
+						if(response > '1.06'){
+							is_versions();
+						}
+					});
+				})
+			}
+
+			$(document).ready(function(){
+				if(window._WebView_JS_Info != undefined && window._WebView_JS_versionCode && window._WebView_JS_versionCode.versionCode()==2 ){
+					Versions = window._WebView_JS_Info.VersionName();
+					Msystem = 'android';
+					Newversion = '';
+					is_versions();
+				}
+
+
+				interactive_version('{"color":"","background":"#c4272d"}', '');
+				 baichuanMerchant("luofangsj","1");
+			});
+			function is_versions() {
+					checkVersions();
+			}
+			function checkVersions(){
+				if(Versions && Versions >= Newversion)return false;
+				if(!Versions)return false;
+
+				$('.loading_screen').show();
+				$('.loading_msg').fadeIn(100);
+	    		$('.loading_msg').fadeOut(2000);
+				$.post("/User/is_update/jid/1.html",{'appversions':Versions,'msystem':Msystem},function(result){
+					$('.loading_font').show();
+					if(result.status==0 && result.msg){
+						$('.loading_font').find('section').html(result.msg);
+					}else if(result.status==1 && result.msg){
+						$('.loading_font').find('section').html(result.msg);
+						$('.loading_downNow').attr('href',result.url);
+					}
+				});
+			}
+		</script>
+</body>
+</html>
