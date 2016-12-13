@@ -16,6 +16,7 @@ public class WebActivity extends ZBaseActivity{
     }
     @Override
     protected void Init() {
+        String a="{\"type\":\"ACW_Messge\",\"num\":\"2\"}";
         super.Init();
         Intent intent=getIntent();
         String webUrl=intent.getStringExtra("Url");

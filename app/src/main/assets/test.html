@@ -20,6 +20,7 @@
 <h3 onclick="getMid()">商家id</h3>
 <h3 onclick="getVesion()">获得版本号</h3>
 <h3 onclick="Merchant()">进入主页面</h3>
+<h3 id="WCA_ALI_PAY" onclick="AliPay()">支付宝</h3>
 </body>
 <script type="text/javascript">
 Merchant();
@@ -35,6 +36,16 @@ function Merchant()
 {
 merchant("1","luofangsj")
 }
+function AliPay()
+	{
+	 var data = {type:"WCA_ALI_PAY",id:"123456789009876556",info:"兰博基尼",fee:"0.01"};
+            window.WebViewJavascriptBridge.send(
+                data
+                , function(responseData) {
+
+                }
+            );
+	}
   function connectWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) {
                 callback(WebViewJavascriptBridge)

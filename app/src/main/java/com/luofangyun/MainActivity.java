@@ -4,9 +4,9 @@ import com.igexin.sdk.PushManager;
 import com.luofangyun.base.ZBaseActivity;
 import com.luofangyun.base.ZBaseJSBridgeFragment;
 import com.luofangyun.util.TypeUtil;
-
 public class MainActivity extends ZBaseActivity {
     private long mExitTime = 0;
+    ZBaseJSBridgeFragment zBaseJSBridgeFragment;
     @Override
     protected int layoutId() {
         return R.layout.activity_main;
@@ -15,11 +15,17 @@ public class MainActivity extends ZBaseActivity {
     protected void Init() {
         super.Init();
         PushManager.getInstance().initialize(this.getApplicationContext());
-        ZBaseJSBridgeFragment zBaseJSBridgeFragment=new ZBaseJSBridgeFragment();
+         zBaseJSBridgeFragment=new ZBaseJSBridgeFragment();
         zBaseJSBridgeFragment.setWebUrl("http://a.luofangyun.com/Public/login");
 //        zBaseJSBridgeFragment.setWebUrl("file:///android_asset/test.html");
 //        zBaseJSBridgeFragment.setWebUrl("file:///android_asset/Index_index.html");
         getZFragmentManager().replace(R.id.fram, zBaseJSBridgeFragment);
+    }
+    @Override
+    public void onResume()
+    {
+        zBaseJSBridgeFragment.UnreadNumChange();
+        super.onResume();
     }
     @Override
     public void onBackPressed() {

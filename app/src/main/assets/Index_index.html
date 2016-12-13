@@ -9,8 +9,8 @@
 	<script src="http://a.luofangyun.com/Public/Merchantapp/js/swiper.min.js"></script>
     <script src="http://a.luofangyun.com/Public/Js/Mobile/jquery-1.7.1.min.js"></script>
     <script src="http://a.luofangyun.com/Public/Js/layer/layer.js"></script>
-    <script src="http://a.luofangyun.com/Public/Merchantapp/js/interactive.js"></script>
-	<script src="file:///android_asset/app.js"></script>
+    <script src="http://a.luofangyun.com/Public/Js/interactive.js"></script>
+
 <script>
 //10px 1rem;
 !function(){function a(){if(document.documentElement.clientWidth<600){document.documentElement.style.fontSize=document.documentElement.clientWidth/32+"px"}else{document.documentElement.style.fontSize="16.875px"}}var b=null;window.addEventListener("resize",function(){clearTimeout(b),b=setTimeout(a,300)},!1),a()}(window);
@@ -93,13 +93,13 @@ span.note-red {
 				<li>
 					<a href="javascript:;" onclick="Pullrefresh('{:U('/Order/manage')}')">
 						
-						<i class="ico ico-hygl"><span class="note-red"></span></i>
+						<i class="ico ico-hygl"><span class="note-red order-num"></span></i>
 						<span>订单管理</span>
 					</a>
 				</li>
 				<li class="bdr-n">
 					<a href="javascript:;" onclick="baichuanchat();">
-						<i class="ico ico-sbgl"></i>
+						<i class="ico ico-hygl"><span class="note-red im-num"></span></i>
 						<span>店小二</span>
 					</a>
 				</li>
@@ -211,6 +211,16 @@ $(function(){
 			}
 			connectWebViewJavascriptBridge(function(bridge) {
 				bridge.init(function(message, responseCallback) {
+				alert(message);
+				 var json = eval('(' + message + ')');
+                var type=json.type;
+                if(type=='ACW_Messge')
+                {
+                 //app发送数据   {"type":"ACW_Messge","num":"2"}
+                // 显示消息数
+
+                 $('span.im-num').text(json.num);
+                }
 				});
 				var data = 'get version number';
 				bridge.send(data, function(responseData) {

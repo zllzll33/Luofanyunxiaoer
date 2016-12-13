@@ -7,8 +7,8 @@ android {
         applicationId "com.luofangyun"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.02"
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
@@ -47,4 +47,5 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile files('libs/GetuiExt-2.0.3.jar')
     compile files('libs/GetuiSDK2.8.1.0.jar')
+
 }

@@ -73,7 +73,18 @@ public class TypeUtil {
         sb.append("}");
         return sb.toString();
     }
+    public static String Map2String(Map map){
+        Map.Entry entry;
+        StringBuffer sb = new StringBuffer();
+        for(Iterator iterator = map.entrySet().iterator(); iterator.hasNext();)
+        {
+            entry = (Map.Entry)iterator.next();
+            sb.append(entry.getKey().toString()).append( "=" ).append("\"").append(null==entry.getValue()?"":
+                    entry.getValue().toString()).append("\"").append (iterator.hasNext() ? "&" : "");
+        }
 
+        return sb.toString();
+    }
     public static Map String2Map(String mapString){
         Map map = new HashMap();
         StringTokenizer items;

@@ -17,6 +17,7 @@ import com.alibaba.mobileim.aop.Pointcut;
 import com.alibaba.mobileim.aop.custom.IMChattingPageUI;
 import com.alibaba.mobileim.conversation.YWConversation;
 import com.luofangyun.R;
+import com.luofangyun.config.Constant;
 import com.luofangyun.config.HttpMap;
 
 import org.json.JSONException;
@@ -75,7 +76,8 @@ public class ChattingUICustom extends IMChattingPageUI {
                 context.startActivity(intent);
             }
         });
-        url = HttpMap.server_user + "/User/myaccount/mid/4/uid/" + uid;
+        url = HttpMap.server_user + "/User/myaccount/mid/"+ Constant.mid+"/uid/" + uid;
+//        Log.e("im_detail",url);
         if (TextUtils.isEmpty(userid)) {
             httpInfo();
         } else {

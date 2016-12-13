@@ -23,20 +23,20 @@ import com.luofangyun.config.HttpMap;
 import com.luofangyun.getui.GPushReceiver;
 import com.luofangyun.util.PreferenceUtil;
 import com.luofangyun.util.TypeUtil;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by win7 on 2016/6/22.
  */
 public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
     DefaultHandler defaultHandler;
     YWIMKit mIMKit;
-    int unReadNum;
+    int unReadNum=-1;
+    String order_id;
+    String order_info;
+    String order_fee;
+    String payJsonStr;
    public  boolean imStatus=false;
     String utype;
     @Override
@@ -58,6 +58,7 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
                         Intent intent=new Intent(getActivity(), MipCaptureActitvity.class);
                         startActivity(intent);
                     }
+
                     else if(type.equals("merchant"))
                     {
                         Constant.mid=jsObject.optString("data");
@@ -85,6 +86,7 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
                         else
                           getActivity().finish();
                     }
+
                   else  if(type.equals("user"))
                     {
                         ImLoginCheck();
@@ -156,14 +158,7 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
     @Override
     public void onResume()
     {
-        if(mIMKit!=null)
-        {
-//            Log.e("纬度消息数",String.valueOf(mIMKit.getConversationService().getAllUnreadCount()));
-            if(unReadNum!=mIMKit.getConversationService().getAllUnreadCount())
-            {
-                UnreadNumChange();
-            }
-        }
+
 
         super.onResume();
     }
@@ -178,6 +173,9 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
             else
                 httpPW(Constant.mid,utype);
         }
+        else
+            UnreadNumChange();
+
     }
   public void httpPW(String mid,String type)
   {
@@ -217,6 +215,7 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
             public void onSuccess(Object... arg0) {
                 imStatus=true;
                 Log.e("baichuan","登录成功");
+                UnreadNumChange();
                 mIMKit.getIMCore().addConnectionListener(new IYWConnectionListener() {
                     @Override
                     public void onDisconnect(int i, String s) {
@@ -263,14 +262,23 @@ public class ZBaseJSBridgeFragment extends ZWebJSBridgeFragment {
     }
     public  void UnreadNumChange()
     {
-        unReadNum=mIMKit.getConversationService().getAllUnreadCount();
-        String  data="{\"type\":\"ACW_Messge\",\"num\":"+String.valueOf(unReadNum)+"}";
-        wv.send(data, new CallBackFunction() {
-            @Override
-            public void onCallBack(String data) {
+        if(mIMKit!=null)
+        {
+//            Log.e("纬度消息数",String.valueOf(mIMKit.getConversationService().getAllUnreadCount()));
+//            if(unReadNum!=mIMKit.getConversationService().getAllUnreadCount())
+            {
+                unReadNum=mIMKit.getConversationService().getAllUnreadCount();
+                String  data="{\"type\":\"ACW_Messge\",\"num\":"+String.valueOf(unReadNum)+"}";
+//                Log.e("im_js",data);
+                wv.send(data, new CallBackFunction() {
+                    @Override
+                    public void onCallBack(String data) {
 
+                    }
+                });
             }
-        });
+        }
+
     }
 
 }

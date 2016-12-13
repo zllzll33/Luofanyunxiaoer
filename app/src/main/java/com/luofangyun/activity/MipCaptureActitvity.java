@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,7 +19,6 @@ import com.luofangyun.R;
 import com.luofangyun.config.Constant;
 import com.luofangyun.config.HttpMap;
 import com.luofangyun.util.TypeUtil;
-import com.zxing.camera.CameraManager;
 import com.zxing.camera.MipcaActivityCapture;
 import com.zxing.view.ViewfinderView;
 
@@ -30,7 +27,6 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 /**
  * Created by win7 on 2016/11/11.
  */
@@ -125,7 +121,6 @@ public class MipCaptureActitvity extends MipcaActivityCapture {
                 InputMethodManager inputManager = (InputMethodManager) edit1.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.showSoftInput(edit1, 0);
             }
-
             @Override
             public void onAnimationCancel(Animator animation) {
 

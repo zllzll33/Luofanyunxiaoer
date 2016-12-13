@@ -7,19 +7,19 @@ function connectWebViewJavascriptBridge(callback) {
 		}, false)
 	}
 }
-connectWebViewJavascriptBridge(function(bridge) {
-	bridge.init(function(message, responseCallback) {
-	})
-});
+//connectWebViewJavascriptBridge(function(bridge) {
+//	bridge.init(function(message, responseCallback) {
+//	})
+//});
 
 function interactive(requestData,needMethod){
-	if (/(iPhone|iPad|iPod|iOS|android)/i.test(navigator.userAgent)) {
+
 		connectWebViewJavascriptBridge(function(bridge) {
 			bridge.send(requestData, function(response) {
 				if(needMethod){eval(needMethod); }else{return response;}
 			});
-		})
-	}else if(window._WebView_JS_Info){
+		});
+	if(window._WebView_JS_Info){
 		var response = window._WebView_JS_Info.VersionName(requestData);
 		if(needMethod){eval(needMethod); }else{return response;}
 	}else{
